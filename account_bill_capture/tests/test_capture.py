@@ -267,10 +267,23 @@ class TestCapture(BillCase):
         move = self.new_bill()
         result = self.read_bill(move, "I am sorry, I cannot read this.")
         self.assertEqual(result["state"], "failed")
-        log = self.env["account.bill.capture.log"].search([("move_id", "=", move.id)])
-        self.assertEqual(log.state, "invalid")
-        self.assertIn("cannot read", log.raw_response)
+        logs = self.env["account.bill.capture.log"].search([("move_id", "=", move.id)])
+        self.assertEqual(logs.mapped("state"), ["invalid", "invalid"])      # one retry, then given up
+        self.assertIn("cannot read", logs[0].raw_response)
+        self.assertEqual(len(ScriptedBillProvider.calls), 2)
         self.assertFalse(move.invoice_line_ids)
+
+    def test_an_empty_first_reading_is_repeated_and_the_better_one_is_used(self):
+        move = self.new_bill()
+        empty = answer(lines=[], total_net=None, total_tax=None, total_gross=None, invoice_number="X")
+        replies = [json.dumps(empty), json.dumps(answer())]
+        ScriptedBillProvider.replies = list(replies)
+        try:
+            result = self.read_bill(move)
+        finally:
+            ScriptedBillProvider.replies = None
+        self.assertEqual(result["state"], "done")
+        self.assertEqual(len(move.invoice_line_ids), 1)
 
     def test_the_log_keeps_provider_time_and_a_shortened_answer_without_the_key(self):
         self.provider.sudo().write({"kind": "scripted_bill", "api_key": "sk-secret-123456"})

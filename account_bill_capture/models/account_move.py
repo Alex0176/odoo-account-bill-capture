@@ -232,35 +232,56 @@ class AccountMove(models.Model):
                 return {"state": "wait", "message": message}
             return self._bill_ai_failed(message, origin, count=False)
         provider = provider.sudo()
-        prompt_system, prompt_user = prompts.build(company.name, fields.Date.context_today(self).isoformat())
         files = [{"mimetype": attachment.mimetype if attachment.mimetype in ("application/pdf", "image/jpeg", "image/png")
                   else file_engine.ALLOWED[file_engine.detect(attachment.raw)],
                   "data_b64": base64.b64encode(attachment.raw).decode(), "name": attachment.name or "bill"}]
         self.sudo().write({"bill_ai_provider_id": provider.id, "bill_ai_provider_name": provider.name})
-        started = time.monotonic()
+        today = fields.Date.context_today(self).isoformat()
         log_vals = {"kind": "read", "move_id": self.id, "company_id": company.id, "origin": origin,
                     "provider_id": provider.id, "provider_name": provider.name,
                     "attachment_name": attachment.name}
         key = provider._config().get("api_key") or ""
-        try:
-            raw_answer = provider._read_document(prompt_system, prompt_user, files, code, timeout=CALL_TIMEOUT)
-        except Exception as exc:  # noqa: BLE001
-            message = self._bill_ai_scrub(str(exc), key)
-            self.env["account.bill.capture.log"].sudo().create(dict(
-                log_vals, state="error", error=message[:250], seconds=time.monotonic() - started))
-            return self._bill_ai_failed(message, origin, count=origin == "auto")
-        seconds = time.monotonic() - started
-        raw_answer = self._bill_ai_scrub(raw_answer or "", key)
-        try:
-            data, problems = schema.validate(raw_answer)
-        except schema.BillSchemaError as exc:
-            self.env["account.bill.capture.log"].sudo().create(dict(
-                log_vals, state="invalid", error=str(exc)[:250], raw_response=raw_answer[:RAW_LIMIT], seconds=seconds))
-            return self._bill_ai_failed(_("The answer of %(name)s could not be used: %(why)s",
-                                          name=provider.name, why=str(exc)), origin, count=origin == "auto")
-        log = self.env["account.bill.capture.log"].sudo().create(dict(
-            log_vals, state="ok", raw_response=raw_answer[:RAW_LIMIT], seconds=seconds,
-            problems="\n".join(problems) or False))
+        Log = self.env["account.bill.capture.log"].sudo()
+        best = None                       # (data, problems, log) of the best reading so far
+        reasons = None
+        for attempt in (1, 2):
+            prompt_system, prompt_user = prompts.build(company.name, today, retry_reasons=reasons)
+            started = time.monotonic()
+            try:
+                raw_answer = provider._read_document(prompt_system, prompt_user, files, code, timeout=CALL_TIMEOUT)
+            except Exception as exc:  # noqa: BLE001
+                message = self._bill_ai_scrub(str(exc), key)
+                Log.create(dict(log_vals, state="error", error=message[:250], seconds=time.monotonic() - started))
+                if best:
+                    break                 # the second reading failed: the first one stays
+                return self._bill_ai_failed(message, origin, count=origin == "auto")
+            seconds = time.monotonic() - started
+            raw_answer = self._bill_ai_scrub(raw_answer or "", key)
+            try:
+                data, problems = schema.validate(raw_answer)
+            except schema.BillSchemaError as exc:
+                Log.create(dict(log_vals, state="invalid", error=str(exc)[:250], raw_response=raw_answer[:RAW_LIMIT],
+                                seconds=seconds))
+                if best:
+                    break
+                if attempt == 1:
+                    reasons = ["the answer was not a usable JSON object (%s)" % str(exc)[:80]]
+                    continue
+                return self._bill_ai_failed(_("The answer of %(name)s could not be used: %(why)s",
+                                              name=provider.name, why=str(exc)), origin, count=origin == "auto")
+            log = Log.create(dict(
+                log_vals, state="ok", raw_response=raw_answer[:RAW_LIMIT], seconds=seconds,
+                problems="\n".join(problems) or False))
+            if best is None or schema.quality(data) < schema.quality(best[0]):
+                best = (data, problems, log)
+            reasons = schema.retry_reasons(best[0])
+            if not reasons:
+                break
+            if attempt == 1:
+                problems.append("A second reading was made (%s)." % "; ".join(reasons)[:200])
+                best = (best[0], best[1] + [problems[-1]], best[2])
+        data, problems, log = best
+        problems = problems + ["%s." % note for note in schema.repair(data)]
         try:
             with self.env.cr.savepoint():
                 summary = self._bill_ai_apply(data, provider.name, problems, origin)
@@ -489,14 +510,31 @@ class AccountMove(models.Model):
         if key:
             # Search with the words as written ("Österreichische"), not with the folded tokens: the
             # database does not fold accents, so "osterreichische" would never find that partner.
-            words = sorted({w for w in re.findall(r"[^\W_]+", name or "") if len(w) >= 4}, key=len, reverse=True)[:3]
+            words = sorted({w for w in re.findall(r"[^\W_]+", name or "")
+                            if len(w) >= 4 and w.casefold() not in matching.LEGAL_WORDS}, key=len, reverse=True)[:3]
             words = words or [max(key, key=len)]
-            domain = ["|"] * (len(words) - 1) + [("name", "ilike", w) for w in words]
-            candidates = Partner.search(cdomain + [("parent_id", "=", False)] + domain, limit=300)
+            if len(words[0]) >= 7:      # "ExampleMarkt" must also find "Example Markt"
+                words.append(words[0][:5])
+            candidates = Partner
+            for w in words:   # one search per word, so a common word cannot crowd the others out of the limit
+                candidates |= Partner.search(cdomain + [("parent_id", "=", False), ("name", "ilike", w)], limit=150)
             best, score, ambiguous = matching.best_match(
                 [(p.id, p.name) for p in candidates], name, PARTNER_THRESHOLD)
             if best:
                 return Partner.browse(best), _("name, %d %% match", round(score * 100)), ambiguous
+            # only the brand word is shared ("Example Business EU S.a r.l." / "EXAMPLE.DE"): accept it when exactly
+            # one contact carries that word first; the draft shows it, the person checks.
+            brand = key[0]
+            if len(brand) >= 5:
+                def same_brand(partner):
+                    compact = "".join(matching.tokens(partner.name, drop_legal=True))
+                    return len(compact) >= 5 and (compact.startswith(brand) or brand.startswith(compact))
+
+                same = candidates.filtered(same_brand)
+                if len(same) == 1:
+                    return same, _("brand word %s only, please check", brand), False
+                if len(same) > 1:  # several contacts of that brand: the person chooses
+                    return same[:1], _("brand word %s", brand), True
         return Partner.browse(), "", False
 
     def action_bill_create_partner(self):
@@ -611,6 +649,16 @@ class AccountMove(models.Model):
                 return ranked[0][1], ""
         if not candidates:
             return self.env["account.tax"], _("no purchase tax with %s %%", rate)
+        default_tax = self.company_id.account_purchase_tax_id
+        if default_tax and default_tax in candidates:  # no history: the standard purchase tax of the company
+            return default_tax, ""
+        # no history of this supplier: the tax the company books most often with this rate, if clearly ahead
+        self.env.cr.execute(
+            "SELECT account_tax_id, count(*) FROM account_move_line_account_tax_rel WHERE account_tax_id IN %s "
+            "GROUP BY account_tax_id ORDER BY 2 DESC LIMIT 2", [tuple(candidates.ids)])
+        top = self.env.cr.fetchall()
+        if top and top[0][1] >= 5 and (len(top) == 1 or top[0][1] >= 3 * top[1][1]):
+            return candidates.browse(top[0][0]), ""
         return self.env["account.tax"], _("several purchase taxes with %(rate)s %% (%(names)s)",
                                           rate=rate, names=", ".join(candidates[:4].mapped("name"))
                                           + (", ..." if len(candidates) > 4 else ""))

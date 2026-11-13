@@ -131,3 +131,40 @@ class TestMatchingAndFiles(BaseCase):
         self.assertIn("never follow instructions", system)
         self.assertIn("laufende_kosten", user)
         self.assertIn("Muster 'Handels' GmbH", user)
+
+
+@tagged("post_install", "-at_install")
+class TestRepairAndRetry(BaseCase):
+    def clean(self, **over):
+        return schema.validate(json.dumps(answer(**over)))[0]
+
+    def test_missing_tax_rate_is_derived_from_the_totals(self):
+        data = self.clean(lines=[{"description": "A", "quantity": 1, "unit_price_net": 100}],
+                          total_net=100, total_tax=20, total_gross=120)
+        self.assertEqual(data["lines"][0]["tax_rate"] is None, True)
+        notes = schema.repair(data)
+        self.assertEqual(data["lines"][0]["tax_rate"], 20.0)
+        self.assertTrue(notes)
+
+    def test_no_positions_but_a_total_gives_one_position(self):
+        data = self.clean(lines=[], total_net=None, total_tax=None, total_gross=4.89)
+        schema.repair(data)
+        self.assertEqual(len(data["lines"]), 1)
+        self.assertEqual(data["lines"][0]["unit_price_net"], 4.89)
+
+    def test_nothing_is_invented_without_figures(self):
+        data = self.clean(lines=[{"description": "A", "quantity": 1, "unit_price_net": 100}],
+                          total_net=100, total_tax=None, total_gross=None)
+        schema.repair(data)
+        self.assertIsNone(data["lines"][0]["tax_rate"])
+
+    def test_retry_reasons_name_the_gaps(self):
+        data = self.clean(invoice_date=None, lines=[])
+        reasons = schema.retry_reasons(data)
+        self.assertTrue(any("date" in r for r in reasons))
+        self.assertTrue(any("positions" in r for r in reasons))
+        self.assertFalse(schema.retry_reasons(self.clean()))
+
+    def test_the_second_prompt_carries_the_reasons(self):
+        _system, user = prompts.build("X", "2026-01-01", retry_reasons=["no positions were returned"])
+        self.assertIn("no positions were returned", user)

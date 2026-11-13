@@ -13,8 +13,8 @@ SYSTEM = (
 )
 
 
-def build(company_name, today):
-    """``(system, user)`` for one invoice."""
+def build(company_name, today, retry_reasons=None):
+    """``(system, user)`` for one invoice; ``retry_reasons`` for the second reading."""
     user = (
         "Read the attached invoice. The invoice is addressed to the company \"%(company)s\"; "
         "the SUPPLIER is the other party (the one who issued the invoice). Today is %(today)s.\n"
@@ -24,7 +24,19 @@ def build(company_name, today):
         "licences) or \"laufende_kosten\" (electricity, gas, water, rent, insurance, telephone, fees, "
         "subscriptions). Dates as YYYY-MM-DD, numbers as plain numbers with a decimal point. "
         "Give your confidence per group (0-1) in \"confidence\".\n"
+        "Rules: Read ALL pages. Copy the invoice number character by character and keep letter O and "
+        "digit 0 apart. The invoice date is the date of issue (accept English formats such as "
+        "'Oct 13, 2026' or '13/10/2026'; dates in Austria/Germany are day.month.year). If the document "
+        "is a receipt, order confirmation or payment confirmation, treat it like an invoice. Name the "
+        "SUPPLIER with its legal company name from the letterhead or the imprint, not a web shop "
+        "domain. Give tax_rate for every line (0 if the document shows no tax, e.g. reverse charge or "
+        "outside the EU), and total_net, total_tax and total_gross exactly as printed. Check that the "
+        "positions add up to the totals; if not, re-read the numbers.\n"
         "JSON schema:\n%(schema)s"
     ) % {"company": (company_name or "")[:100].replace('"', "'"), "today": today,
          "schema": json.dumps(BILL_SCHEMA, indent=1)}
+    if retry_reasons:
+        user += ("\nA first reading of this document had problems: %s. Read the document again, "
+                 "carefully, and fix them if the document allows it; keep null where it does not."
+                 % "; ".join(retry_reasons)[:600])
     return SYSTEM, user

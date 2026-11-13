@@ -3,6 +3,7 @@
 """Shared test setup. Everything is invented: companies, suppliers, products, numbers."""
 import base64
 import copy
+from datetime import date
 import json
 
 from odoo.addons.ai_translation_consensus import providers
@@ -18,7 +19,7 @@ HEIC = b"\x00\x00\x00\x18ftypheic" + b"0" * 40
 BASE_ANSWER = {
     "supplier": {"name": "Muster-Strom GmbH", "vat": None, "iban": None, "address": None},
     "invoice_number": "RE-2026-001",
-    "invoice_date": None,
+    "invoice_date": date.today().isoformat(),
     "due_date": None,
     "currency": None,
     "lines": [{"description": "Elektrische Energie Oktober", "item_number": None, "quantity": 1,
@@ -51,6 +52,7 @@ class ScriptedBillProvider(ChatProvider):
     reply = None            # str or dict
     raises = None           # an exception instance
     calls = []
+    replies = None          # a list: answers one after the other (then the last one repeats)
 
     def _complete_document(self, system, user, files):
         ScriptedBillProvider.calls.append({"name": self.name, "system": system, "user": user, "files": files})
@@ -58,6 +60,8 @@ class ScriptedBillProvider(ChatProvider):
             raise ScriptedBillProvider.raises
         self._tokens(900, 300)
         reply = ScriptedBillProvider.reply
+        if ScriptedBillProvider.replies:
+            reply = ScriptedBillProvider.replies.pop(0) if len(ScriptedBillProvider.replies) > 1 else ScriptedBillProvider.replies[0]
         return reply if isinstance(reply, str) else json.dumps(reply)
 
 
@@ -104,6 +108,7 @@ class BillCase(TransactionCase):
         super().setUp()
         ScriptedBillProvider.calls = []
         ScriptedBillProvider.raises = None
+        ScriptedBillProvider.replies = None
         ScriptedBillProvider.reply = answer()
         self.company.write({"bill_capture_mode": "manual", "bill_unknown_product_mode": "suggest",
                             "bill_supplier_price_update": "post", "bill_margin_check": True,

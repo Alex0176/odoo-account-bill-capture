@@ -237,3 +237,69 @@ def date_problems(data, today, max_age_days=1100, max_future_days=14):
     if invoice and data["due_date"] and date.fromisoformat(data["due_date"]) < invoice:
         out.append("due_date")
     return out
+
+
+STANDARD_RATES = (0.0, 5.0, 7.0, 9.0, 10.0, 12.0, 13.0, 19.0, 20.0, 21.0, 22.0, 25.0)
+
+
+def _rate_from_totals(net, tax):
+    """The standard tax rate that net and tax amount point to (within half a percentage point), else None."""
+    if net is None or tax is None or net <= 0 or tax < 0:
+        return None
+    rate = tax / net * 100.0
+    near = min(STANDARD_RATES, key=lambda r: abs(r - rate))
+    return near if abs(near - rate) <= 0.5 else None
+
+
+def repair(data):
+    """Fill gaps that the totals of the document make certain. Returns the list of notes (what was done).
+
+    * no tax rate on any position, but net and tax total give a standard rate: the rate is taken over;
+    * no position at all, but a total: one position "total of the document" (so the bill is not empty).
+    Nothing is invented: both rules need figures read from the document."""
+    notes = []
+    net, tax, gross = data["total_net"], data["total_tax"], data["total_gross"]
+    if net is None and gross is not None and tax is not None:
+        net = round(gross - tax, 2)
+    if net is None and gross is not None and tax is None and not data["lines"]:
+        net = gross
+        tax = 0.0
+        notes.append("total tax not read, taken as 0 for the position made from the total")
+    rate = _rate_from_totals(net, tax)
+    if data["lines"] and rate is not None and all(l["tax_rate"] is None for l in data["lines"]):
+        for line in data["lines"]:
+            line["tax_rate"] = rate
+        notes.append("tax rate %g %% derived from the totals" % rate)
+    if not data["lines"] and net is not None and net > 0:
+        data["lines"].append({
+            "description": "Gesamtbetrag laut Beleg", "item_number": None, "quantity": 1.0, "unit": None,
+            "unit_price_net": float(net), "discount_percent": 0.0, "tax_rate": rate, "art": None})
+        notes.append("no positions were read: one position with the total was made")
+    return notes
+
+
+def retry_reasons(data, problems=()):
+    """Why a second reading is worth it: a list of short English texts for the prompt (empty = fine)."""
+    out = []
+    if not data["lines"]:
+        out.append("no positions were returned")
+    if not (data["supplier"] or {}).get("name"):
+        out.append("the supplier name is missing")
+    if not data["invoice_number"]:
+        out.append("the invoice number is missing")
+    if not data["invoice_date"]:
+        out.append("the invoice date is missing (look for 'Date', 'Invoice date', 'Datum', 'Rechnungsdatum'; "
+                   "English dates like 'Oct 13, 2026' or '13 October 2026' count)")
+    for code, detail in check_totals(data):
+        if code == "net":
+            out.append("the positions add up to a different net amount than the total (%s)" % detail)
+        elif code == "gross":
+            out.append("positions plus tax do not give the gross total (%s)" % detail)
+        elif code == "sum":
+            out.append("net plus tax is not the gross total (%s)" % detail)
+    return out
+
+
+def quality(data):
+    """Lower is better: the number of open reasons (used to choose between two readings)."""
+    return len(retry_reasons(data))
