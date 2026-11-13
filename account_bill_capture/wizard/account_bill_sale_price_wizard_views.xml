@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bill_sale_price_wizard_form" model="ir.ui.view">
+        <field name="name">account.bill.sale.price.wizard.form</field>
+        <field name="model">account.bill.sale.price.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="product_tmpl_id"/>
+                    <field name="company_currency_id" invisible="1"/>
+                    <field name="line_id" invisible="1"/>
+                    <field name="cost"/>
+                    <field name="current_price"/>
+                    <field name="markup_percent"/>
+                    <field name="new_price"/>
+                </group>
+                <p class="text-muted">The selling price is only changed when you confirm. It then applies
+                    everywhere the product is sold, including the website.</p>
+                <footer>
+                    <button name="action_confirm" type="object" string="Set selling price" class="btn-primary"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

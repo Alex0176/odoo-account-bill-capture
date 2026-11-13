@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Nothing to define: capture is limited to account.group_account_invoice (and so the
+         accounting administrators) by the access rights, the buttons and the checks in the code. -->
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="capture_page" name="Capture a vendor bill">&lt;!DOCTYPE html&gt;
+        <html>
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <title t-out="t['title']"/>
+                <style>
+                    body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;margin:0;padding:1rem;background:#f4f5f7;color:#222;line-height:1.45}
+                    main{max-width:34rem;margin:0 auto;background:#fff;padding:1.2rem;border-radius:.6rem;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+                    h1{font-size:1.35rem;margin:0 0 .2rem}
+                    a{color:#0b6bcb}
+                    .drop{display:block;margin:1rem 0 .6rem}
+                    input[type=file]{width:100%;box-sizing:border-box;padding:.7rem;font-size:1rem;border:2px dashed #9ab;border-radius:.5rem;background:#f8fafc}
+                    input[type=file]::file-selector-button{padding:.7rem 1rem;margin-right:.8rem;font-size:1rem;border:0;border-radius:.4rem;background:#e3eaf3;color:#123}
+                    label.choice{display:flex;gap:.6rem;align-items:center;padding:.8rem;border:1px solid #ccd;border-radius:.4rem;margin:.4rem 0;font-size:1.05rem}
+                    label.choice input{width:1.2rem;height:1.2rem}
+                    button{width:100%;margin-top:.4rem;padding:.9rem;font-size:1.05rem;border:0;border-radius:.4rem;background:#0b6bcb;color:#fff}
+                    .ok{color:#116611}.bad{color:#a11}
+                    ul{padding-left:0;list-style:none;margin:1rem 0}
+                    li{padding:.6rem .7rem;margin:.4rem 0;border:1px solid #e0e3e8;border-radius:.4rem;word-break:break-word}
+                    .muted{color:#556;font-size:.9rem;margin:.8rem 0}
+                </style>
+            </head>
+            <body>
+                <main>
+                    <h1 t-out="t['title']"/>
+                    <p class="muted"><t t-out="company"/></p>
+                    <form method="post" action="/bill-capture/upload" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <label class="drop"><input type="file" name="files" accept="image/*,application/pdf" capture="environment" multiple="multiple" required="required"/></label>
+                        <label class="choice">
+                            <input type="radio" name="how" value="store" checked="checked"/>
+                            <t t-out="t['only_store']"/>
+                        </label>
+                        <label class="choice" t-if="mode != 'off'">
+                            <input type="radio" name="how" value="ai"/>
+                            <t t-out="t['read_ai']"/>
+                        </label>
+                        <button type="submit"><t t-out="t['send']"/></button>
+                    </form>
+                    <p class="muted" t-out="t['hint']"/>
+                    <ul t-if="results">
+                        <li t-foreach="results" t-as="r">
+                            <b t-out="r['name']"/>:
+                            <span t-att-class="'ok' if r['ok'] else 'bad'" t-out="r['message']"/>
+                            <a t-if="r.get('url')" t-att-href="r['url']" t-out="t['open']"/>
+                        </li>
+                    </ul>
+                    <p><a t-att-href="backend_url" t-out="t['back']"/></p>
+                </main>
+            </body>
+        </html>
+    </template>
+</odoo>

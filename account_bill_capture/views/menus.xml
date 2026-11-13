@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_bill_capture_page" name="Capture a bill" parent="account.menu_finance_payables"
+              action="action_bill_capture_page" sequence="2" groups="account.group_account_invoice"/>
+    <menuitem id="menu_bill_review" name="Bills to review" parent="account.menu_finance_payables"
+              action="action_bill_review" sequence="3" groups="account.group_account_invoice"/>
+    <menuitem id="menu_bill_capture_log" name="Bill capture log" parent="account.menu_finance_configuration"
+              action="action_bill_capture_log" sequence="95" groups="account.group_account_manager"/>
+</odoo>

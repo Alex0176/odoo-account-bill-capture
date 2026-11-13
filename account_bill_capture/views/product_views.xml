@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_supplierinfo_tree_bill_capture" model="ir.ui.view">
+        <field name="name">product.supplierinfo.list.bill.capture</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="price" position="after">
+                <field name="bill_last_date" optional="show" readonly="1"/>
+                <field name="bill_last_move_id" optional="show" readonly="1"/>
+                <field name="bill_last_price" optional="hide" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_form_bill_capture" model="ir.ui.view">
+        <field name="name">product.template.form.bill.capture</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <field name="bill_ai_created" invisible="1"/>
+                <div class="alert alert-warning d-flex align-items-center gap-2" role="alert" invisible="not bill_ai_created">
+                    <span>Created from a vendor bill by the AI capture. Check name, category and account.</span>
+                    <field name="bill_ai_move_id" readonly="1"/>
+                    <button name="action_bill_ai_reviewed" type="object" string="Mark as reviewed" class="btn-primary"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_search_bill_capture" model="ir.ui.view">
+        <field name="name">product.template.search.bill.capture</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <filter name="filter_to_sell" position="before">
+                <filter string="Created by AI, to review" name="bill_ai_created" domain="[('bill_ai_created', '=', True)]"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

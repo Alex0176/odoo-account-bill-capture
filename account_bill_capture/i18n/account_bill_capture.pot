@@ -1,0 +1,1554 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-13 10:04+0000\n"
+"PO-Revision-Date: 2026-11-13 10:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "\"%(text)s\": product %(product)s (%(source)s)."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "%(name)s is larger than %(mb)s MB."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "%(name)s is not available: %(reason)s"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid ""
+"%s is a HEIC/HEIF photo. Please take or save it as JPEG (iPhone: Settings, "
+"Camera, Formats, Most Compatible)."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "%s is not a PDF, JPEG or PNG file."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+msgid "%s price changes were not undone because the price was changed again."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+msgid "(new entry)"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.product_template_form_bill_capture
+msgid ""
+"<span>Created from a vendor bill by the AI capture. Check name, category and"
+" account.</span>"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_res_company__bill_price_change_limit
+#: model:ir.model.fields,help:account_bill_capture.field_res_config_settings__bill_price_change_limit
+msgid ""
+"A new price that differs from the old one by more than this is not applied; "
+"it is suggested and needs a confirmation. 0 = every change needs a "
+"confirmation."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+msgid "AI capture"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_form_bill_capture
+msgid "AI hint"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_notes
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_notes
+msgid "AI hints"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__origin__instant
+msgid "AI proposal"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "AI proposal:"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_state
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_state
+msgid "AI reading"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_company__bill_margin_activity_user_id
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_config_settings__bill_margin_activity_user_id
+msgid "Activity for low selling prices"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/wizard/account_bill_sale_price_wizard.py:0
+#: model:ir.model,name:account_bill_capture.model_account_bill_sale_price_wizard
+msgid "Adjust selling price"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_form_bill_capture
+msgid "Adjust selling price..."
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.res_config_settings_view_form_bill_capture
+msgid ""
+"After a new purchase price: warn when the selling price is below it or the "
+"margin is too small. The selling price is never changed automatically."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_res_company__bill_update_standard_price
+#: model:ir.model.fields,help:account_bill_capture.field_res_config_settings__bill_update_standard_price
+msgid ""
+"Also set the cost of products that are not stocked. The cost of stocked "
+"products is never changed (it is their valuation)."
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_capture_log_form
+msgid "Answer of the provider (shortened)"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__state__applied
+msgid "Applied"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/controllers/main.py:0
+msgid "At most %s files per upload."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__attachment_name
+msgid "Attachment Name"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__origin__auto
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__res_company__bill_capture_mode__auto
+msgid "Automatic"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/controllers/main.py:0
+msgid "Back to Odoo"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_attempts
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_attempts
+msgid "Bill Ai Attempts"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_error
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_error
+msgid "Bill Ai Error"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move_line__bill_ai_generated
+msgid "Bill Ai Generated"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_json
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_json
+msgid "Bill Ai Json"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move_line__bill_ai_margin_warning
+msgid "Bill Ai Margin Warning"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_provider_id
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_provider_id
+msgid "Bill Ai Provider"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_provider_name
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_provider_name
+msgid "Bill Ai Provider Name"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.actions.act_window,name:account_bill_capture.action_bill_capture_log
+#: model:ir.model,name:account_bill_capture.model_account_bill_capture_log
+#: model:ir.ui.menu,name:account_bill_capture.menu_bill_capture_log
+msgid "Bill capture log"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_capture_mode
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_capture_mode
+msgid "Bill capture mode"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_company__bill_capture_mode
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_config_settings__bill_capture_mode
+msgid "Bill capture with AI"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid ""
+"Bill capture with AI is switched off for this company (Settings, "
+"Accounting)."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.actions.server,name:account_bill_capture.ir_cron_bill_capture_ir_actions_server
+msgid "Bill capture: read queued vendor bills with AI"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.actions.act_window,name:account_bill_capture.action_bill_review
+#: model:ir.ui.menu,name:account_bill_capture.menu_bill_review
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_list
+msgid "Bills to review"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__origin__manual
+msgid "Button"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_sale_price_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.actions.act_url,name:account_bill_capture.action_bill_capture_page
+#: model:ir.ui.menu,name:account_bill_capture.menu_bill_capture_page
+msgid "Capture a bill"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/controllers/main.py:0
+msgid "Capture a vendor bill"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_company__bill_general_product
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_config_settings__bill_general_product
+msgid "Collective product per expense account"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model,name:account_bill_capture.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__company_id
+msgid "Company"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__company_currency_id
+msgid "Company Currency"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model,name:account_bill_capture.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_form_bill_capture
+msgid "Confirm price changes"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__origin__confirm
+msgid "Confirmed"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__cost
+msgid "Cost"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_form_bill_capture
+msgid "Create product"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__res_company__bill_unknown_product_mode__create
+msgid "Create products automatically"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_form_bill_capture
+msgid "Create supplier"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__created_seller
+msgid "Created Seller"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__create_uid
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_product_product__bill_ai_created
+#: model:ir.model.fields,field_description:account_bill_capture.field_product_template__bill_ai_created
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.product_template_search_bill_capture
+msgid "Created by AI, to review"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_account_move_line__bill_ai_generated
+msgid "Created by the AI capture; a new reading replaces these lines only."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_product_product__bill_ai_created
+#: model:ir.model.fields,help:account_bill_capture.field_product_template__bill_ai_created
+msgid ""
+"Created from a vendor bill by the AI capture. Check name, category and "
+"account, then mark it as reviewed."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_product_product__bill_ai_move_id
+#: model:ir.model.fields,field_description:account_bill_capture.field_product_template__bill_ai_move_id
+msgid "Created from bill"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Created from the vendor bill %s by the AI capture. Please review it."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__create_date
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__current_price
+msgid "Current Price"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__date
+msgid "Date"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_capture_log_search
+msgid "Day"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_form_bill_capture
+msgid "Dismiss price changes"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__state__dismissed
+msgid "Dismissed"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__display_name
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__display_name
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__display_name
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:account_bill_capture.field_product_supplierinfo__display_name
+#: model:ir.model.fields,field_description:account_bill_capture.field_product_template__display_name
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_company__display_name
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.actions.act_window,help:account_bill_capture.action_bill_review
+msgid ""
+"Drafts that were read by the AI show up here with their hints. Posting stays"
+" manual."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Due date"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__error
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_capture_log_form
+msgid "Error"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__state__error
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_capture_log_search
+msgid "Failed"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "General expense %s"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "General line"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "General line (running costs)"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_res_company__bill_general_product
+#: model:ir.model.fields,help:account_bill_capture.field_res_config_settings__bill_general_product
+msgid ""
+"General lines get the collective product 'General expense' of their expense "
+"account, so reports by product stay possible. The collective products are "
+"services without stock."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_move_line__bill_ai_art__ware
+msgid "Goods"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move_line__bill_ai_hint
+msgid "Hint (AI)"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "IBAN"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__id
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__id
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__id
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move_line__id
+#: model:ir.model.fields,field_description:account_bill_capture.field_product_supplierinfo__id
+#: model:ir.model.fields,field_description:account_bill_capture.field_product_template__id
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_company__id
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_config_settings__id
+msgid "ID"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__res_company__bill_supplier_price_update__instant
+msgid "Immediately with the AI proposal"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Invoice date"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Invoice number"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_account_bill_capture_log__old_values
+msgid "JSON: the values of the vendor entry before the change."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model,name:account_bill_capture.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model,name:account_bill_capture.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__kind
+msgid "Kind"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move_line__bill_ai_art
+msgid "Kind (AI)"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__write_uid
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__write_date
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_product_supplierinfo__bill_last_move_id
+msgid "Last bill"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_product_supplierinfo__bill_last_date
+msgid "Last bill date"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_product_supplierinfo__bill_last_price
+msgid "Last billed price"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__line_id
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__line_id
+msgid "Line"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__res_company__bill_capture_mode__manual
+msgid "Manual (button)"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+msgid ""
+"Margin %(margin)d %% is below the minimum of %(minimum)d %% (selling price "
+"%(sale)s, purchase price %(cost)s)"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.product_template_form_bill_capture
+msgid "Mark as reviewed"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__markup_percent
+msgid "Markup on cost (%)"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_company__bill_min_margin_percent
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_config_settings__bill_min_margin_percent
+msgid "Minimum margin (%)"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__move_id
+msgid "Move"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__state__pending
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_capture_log_search
+msgid "Needs confirmation"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Net plus tax is not the gross total (%s)."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__new_price
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__new_price
+msgid "New Price"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__new_standard_price
+msgid "New Standard Price"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_new_product
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_new_product
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "New product to review"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.actions.act_window,help:account_bill_capture.action_bill_review
+msgid "No bill waits for a review"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/controllers/main.py:0
+msgid "No file was chosen."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "No positions were read; the lines were not touched."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "No provider is available for this purpose."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "No reading was possible within %s days."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+msgid "No selling price set"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "No supplier name was read from the document."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "No totals were read, the sums could not be checked."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/controllers/main.py:0
+msgid "Not allowed."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_move__bill_ai_state__skipped
+msgid "Not read"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__note
+msgid "Note"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid ""
+"Nothing was posted. Check the proposal against the document, then post the "
+"bill yourself."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__res_company__bill_capture_mode__off
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__res_company__bill_supplier_price_update__off
+msgid "Off"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_account_bank_statement_line__bill_capture_mode
+#: model:ir.model.fields,help:account_bill_capture.field_account_move__bill_capture_mode
+#: model:ir.model.fields,help:account_bill_capture.field_res_company__bill_capture_mode
+#: model:ir.model.fields,help:account_bill_capture.field_res_config_settings__bill_capture_mode
+msgid ""
+"Off: no AI is used for vendor bills. Manual: the button 'Read with AI' on a "
+"draft bill. Automatic: new drafts with an attachment are read by a "
+"background job. Automatic only fills the draft; it never posts, pays or "
+"sends anything."
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.res_config_settings_view_form_bill_capture
+msgid ""
+"Off: no AI. Manual: button on the draft. Automatic: drafts with an "
+"attachment are read in the background. It never posts, pays or sends "
+"anything."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__old_price
+msgid "Old Price"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__old_standard_price
+msgid "Old Standard Price"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__old_values
+msgid "Old Values"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Only a draft vendor bill can be read."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/controllers/main.py:0
+msgid "Only store"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__res_company__bill_unknown_product_mode__suggest
+msgid "Only suggest"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Only the accounting group may capture bills with AI."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_line.py:0
+msgid "Only the lines of a draft vendor bill can get a product."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/controllers/main.py:0
+msgid "Open"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_res_company__bill_margin_activity_user_id
+#: model:ir.model.fields,help:account_bill_capture.field_res_config_settings__bill_margin_activity_user_id
+msgid ""
+"Optional: this user gets an activity on the product. No e-mail is sent. The "
+"selling price is never changed automatically."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__origin
+msgid "Origin"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/controllers/main.py:0
+msgid ""
+"PDF, JPEG or PNG, at most %(mb)s MB each, up to %(n)s files. Each file "
+"becomes a draft vendor bill; nothing is posted."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Position \"%(text)s\": tax unclear (%(why)s)."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Positions"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_company__bill_unknown_product_mode
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_config_settings__bill_unknown_product_mode
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.res_config_settings_view_form_bill_capture
+msgid "Positions without a product"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_duplicate
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_duplicate
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "Possible duplicate"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__origin__post
+msgid "Posting"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__kind__price
+msgid "Price change"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_company__bill_price_change_limit
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_config_settings__bill_price_change_limit
+msgid "Price change limit (%)"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_price_pending
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_price_pending
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "Price change to confirm"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_capture_log_search
+msgid "Price changes"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__problems
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_capture_log_form
+msgid "Problems"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model,name:account_bill_capture.model_product_template
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__product_id
+msgid "Product"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_sale_price_wizard__product_tmpl_id
+msgid "Product Tmpl"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__kind__create
+msgid "Product created"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Product created by AI, please review"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Product from bill"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_product_missing
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_product_missing
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move_line__bill_ai_product_missing
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "Product missing"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_capture_log_search
+msgid "Products created"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_move__bill_ai_state__done
+msgid "Proposal made"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Proposal made: %(lines)s positions, %(warn)s hints."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__provider_id
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_capture_log_search
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "Provider"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__provider_name
+msgid "Provider Name"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.res_config_settings_view_form_bill_capture
+msgid "Providers and their purposes: Settings, AI Translation, Providers."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_account_bill_sale_price_wizard__cost
+msgid "Purchase price per selling unit, company currency."
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "Queued"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_move__bill_ai_state__queued
+msgid "Queued for automatic reading"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__raw_response
+msgid "Raw Response"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__state__ok
+msgid "Read"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_date
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_date
+msgid "Read at"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.res_config_settings_view_form_bill_capture
+msgid "Read bills with AI"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/controllers/main.py:0
+#: code:addons/account_bill_capture/models/account_move.py:0
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_form_bill_capture
+msgid "Read with AI"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__kind__read
+msgid "Reading"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_move__bill_ai_state__failed
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "Reading failed"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_capture_log_search
+msgid "Readings"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_form_bill_capture
+msgid "Restore the vendor prices as they were before this bill?"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__state__reverted
+msgid "Reverted"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_list
+msgid "Review and post"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_move_line__bill_ai_art__laufende_kosten
+msgid "Running costs"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__seconds
+msgid "Seconds"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__seller_id
+msgid "Seller"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_form_bill_capture
+msgid "Selling price"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+msgid ""
+"Selling price %(sale)s is below the purchase price %(cost)s: margin "
+"%(margin)d %%"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/wizard/account_bill_sale_price_wizard.py:0
+msgid ""
+"Selling price changed from %(old)s to %(new)s after the purchase price of "
+"bill %(move)s, by %(who)s."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move_line__bill_ai_margin_hint
+msgid "Selling price hint"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_low_margin
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_low_margin
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "Selling price too low"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/controllers/main.py:0
+msgid "Send"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_move_line__bill_ai_art__dienstleistung
+msgid "Service"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_sale_price_wizard_form
+msgid "Set selling price"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Several suppliers fit %(name)s (%(how)s): please choose one."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__state
+msgid "State"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__std_changed
+msgid "Std Changed"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Stored."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Stored. AI reading is switched off for this company."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/controllers/main.py:0
+msgid ""
+"Stored. Open it and use 'Read with AI' (at most %s files are read per "
+"upload)."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+msgid ""
+"Suggested vendor price %(old)s to %(new)s (%(partner)s, bill %(move)s). The "
+"change is large, so it is not applied: confirm it on the bill."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_sum_mismatch
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_sum_mismatch
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "Sum differs"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "Supplier"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Supplier %(name)s found (%(how)s)."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid ""
+"Supplier %(name)s is not in the contacts. Use the button 'Create supplier' "
+"after checking the data."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Supplier %s created from the AI reading. Please check the contact."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model,name:account_bill_capture.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move_line__bill_ai_item_number
+msgid "Supplier article number"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_partner_unknown
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_partner_unknown
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "Supplier unknown"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Tax number"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_tax_unclear
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_tax_unclear
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_search
+msgid "Tax unclear"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Tax unclear: %s"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The AI reading did not work."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The IBAN %s is not stored at the supplier (not created)."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The IBAN %s was not accepted and was left out."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The answer of %(name)s could not be used: %(why)s"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_account_bill_capture_log__raw_response
+msgid "The answer of the provider, shortened. Never contains a key."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The bill names %(read)s but the draft has %(have)s."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The company has no purchase journal."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_account_bill_capture_log__std_changed
+msgid "The cost of the product was changed too."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The currency %s is not active; activate it before posting."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The currency %s is unknown."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The draft has a supplier already."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid ""
+"The draft has lines that were entered by hand: the positions of the bill "
+"were not written. Remove those lines to let the AI fill them."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The draft has no attachment to read."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The due date %s is before the invoice date; it was not taken over."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The invoice date %s is not plausible; it was not taken over."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid ""
+"The invoice number %(ref)s exists already for this supplier: %(moves)s."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_line.py:0
+msgid "The line already has a product."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/wizard/account_bill_sale_price_wizard.py:0
+msgid "The line has no product."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid ""
+"The module AI Translation Consensus 19.0.1.3.0 or newer is needed (purposes "
+"and reading of documents)."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/wizard/account_bill_sale_price_wizard.py:0
+msgid "The new selling price must be positive."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_account_bank_statement_line__bill_ai_provider_id
+#: model:ir.model.fields,help:account_bill_capture.field_account_move__bill_ai_provider_id
+msgid "The one provider that received the document."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The positions add up to a different net amount than the total (%s)."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid ""
+"The positions with tax add up to a different gross amount than the total "
+"(%s)."
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.res_config_settings_view_form_bill_capture
+msgid ""
+"The price of a bill is entered on the vendor list of the product (all "
+"vendors stay)."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The proposal could not be applied: %s"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_bill_sale_price_wizard_form
+msgid ""
+"The selling price is only changed when you confirm. It then applies\n"
+"                    everywhere the product is sold, including the website."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The tax number %s was not accepted and was left out."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "The total of the draft (%(draft)s) differs from the bill (%(bill)s)."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_account_bill_capture_log__created_seller
+msgid "The vendor entry was created by this change."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+msgid "There is no price change to confirm."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+msgid "This bill changed no vendor price."
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_review_list
+msgid "Total"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Total net / tax / gross"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__res_company__bill_unknown_product_mode__general
+msgid "Treat as general line"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.view_move_form_bill_capture
+msgid "Undo price changes"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__state__invalid
+msgid "Unusable answer"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_company__bill_update_standard_price
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_config_settings__bill_update_standard_price
+msgid "Update cost of products without stock"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_company__bill_supplier_price_update
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_config_settings__bill_supplier_price_update
+msgid "Update vendor prices"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__account_bill_capture_log__origin__upload
+msgid "Upload"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bill_capture_log__user_id
+msgid "User"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+msgid "Vendor price change of bill %(move)s undone by %(who)s."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move_prices.py:0
+msgid ""
+"Vendor price of %(partner)s: %(old)s to %(new)s %(currency)s, bill %(move)s,"
+" by %(who)s."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_bank_statement_line__bill_ai_price_applied
+#: model:ir.model.fields,field_description:account_bill_capture.field_account_move__bill_ai_price_applied
+msgid "Vendor prices changed"
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.res_config_settings_view_form_bill_capture
+msgid "Vendor prices on products"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_company__bill_margin_check
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_config_settings__bill_margin_check
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.res_config_settings_view_form_bill_capture
+msgid "Warn about low selling prices"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_res_company__bill_min_margin_percent
+#: model:ir.model.fields,help:account_bill_capture.field_res_config_settings__bill_min_margin_percent
+msgid ""
+"Warn when the selling price is below the purchase price, or when the margin "
+"is below this value. 0 = warn about a loss only."
+msgstr ""
+
+#. module: account_bill_capture
+#: model_terms:ir.ui.view,arch_db:account_bill_capture.res_config_settings_view_form_bill_capture
+msgid ""
+"What happens when no existing product fits a position. Created products are "
+"never stocked, not for sale and not published."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_res_company__bill_unknown_product_mode
+#: model:ir.model.fields,help:account_bill_capture.field_res_config_settings__bill_unknown_product_mode
+msgid ""
+"What happens with a position of the bill for which no existing product is "
+"found. Only suggest: line without product, hint 'Product missing' and a "
+"button to create it. Create: new product (never stocked, not for sale, not "
+"on the website); running costs become general lines. General line: text and "
+"expense account only."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields.selection,name:account_bill_capture.selection__res_company__bill_supplier_price_update__post
+msgid "When the bill is posted"
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_res_company__bill_supplier_price_update
+#: model:ir.model.fields,help:account_bill_capture.field_res_config_settings__bill_supplier_price_update
+msgid ""
+"When the vendor price on the product is corrected to the price of the bill. "
+"A draft is not reviewed yet, so the default waits for the posting."
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "name, %d %% match"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "no purchase tax with %s %%"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "several purchase taxes with %(rate)s %% (%(names)s)"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "tax number"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "tax rate not read"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Hints"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid "Position \"%(name)s\": %(hint)s."
+msgstr ""

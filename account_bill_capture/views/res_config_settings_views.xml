@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_bill_capture" model="ir.ui.view">
+        <field name="name">res.config.settings.form.bill.capture</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='account_vendor_bills']" position="inside">
+                <setting id="bill_capture_mode" string="Read bills with AI" company_dependent="1"
+                         help="Off: no AI. Manual: button on the draft. Automatic: drafts with an attachment are read in the background. It never posts, pays or sends anything.">
+                    <field name="bill_capture_mode"/>
+                    <div class="text-muted">Providers and their purposes: Settings, AI Translation, Providers.</div>
+                </setting>
+                <setting id="bill_unknown_product_mode" string="Positions without a product" company_dependent="1"
+                         help="What happens when no existing product fits a position. Created products are never stocked, not for sale and not published.">
+                    <field name="bill_unknown_product_mode"/>
+                    <div class="mt-2"><field name="bill_general_product"/> <label for="bill_general_product"/></div>
+                </setting>
+                <setting id="bill_supplier_price_update" string="Vendor prices on products" company_dependent="1"
+                         help="The price of a bill is entered on the vendor list of the product (all vendors stay).">
+                    <field name="bill_supplier_price_update"/>
+                    <div class="mt-2"><label for="bill_price_change_limit"/> <field name="bill_price_change_limit"/></div>
+                    <div class="mt-2"><field name="bill_update_standard_price"/> <label for="bill_update_standard_price"/></div>
+                </setting>
+                <setting id="bill_margin_check" string="Warn about low selling prices" company_dependent="1"
+                         help="After a new purchase price: warn when the selling price is below it or the margin is too small. The selling price is never changed automatically.">
+                    <field name="bill_margin_check"/>
+                    <div class="mt-2" invisible="not bill_margin_check">
+                        <label for="bill_min_margin_percent"/> <field name="bill_min_margin_percent"/>
+                    </div>
+                    <div class="mt-2" invisible="not bill_margin_check">
+                        <label for="bill_margin_activity_user_id"/> <field name="bill_margin_activity_user_id"/>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
