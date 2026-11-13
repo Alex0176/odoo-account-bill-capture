@@ -1637,3 +1637,13 @@ msgstr "Hinweise"
 #: code:addons/account_bill_capture/models/account_move.py:0
 msgid "Position \"%(name)s\": %(hint)s."
 msgstr "Position \"%(name)s\": %(hint)s."
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid ""
+"Please enter the bill date of %s before posting: a bill is booked in the "
+"year of the document, never in the current year by default."
+msgstr ""
+"Bitte das Rechnungsdatum von %s vor dem Buchen eintragen: Ein Beleg wird im "
+"Jahr des Belegs gebucht, nie standardmäßig im laufenden Jahr."

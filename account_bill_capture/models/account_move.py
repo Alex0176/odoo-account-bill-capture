@@ -74,6 +74,17 @@ class AccountMove(models.Model):
     @api.depends("bill_ai_sum_mismatch", "bill_ai_partner_unknown", "bill_ai_tax_unclear", "bill_ai_duplicate",
                  "bill_ai_product_missing", "bill_ai_new_product", "bill_ai_low_margin", "bill_ai_price_pending",
                  "bill_ai_state")
+
+    def _post(self, soft=True):
+        # Odoo fills a missing bill date with today's date when posting. A bill must be booked in the
+        # year of the document, never silently in the current year, so a missing date stops here.
+        missing = self.filtered(lambda m: m.move_type in ("in_invoice", "in_refund") and not m.invoice_date)
+        if missing:
+            raise UserError(_("Please enter the bill date of %s before posting: a bill is booked in the "
+                              "year of the document, never in the current year by default.",
+                              ", ".join(m.display_name for m in missing)))
+        return super()._post(soft=soft)
+
     def _compute_bill_ai_flags_text(self):
         names = [(name, self._fields[name].string) for name in (
             "bill_ai_sum_mismatch", "bill_ai_partner_unknown", "bill_ai_tax_unclear", "bill_ai_duplicate",

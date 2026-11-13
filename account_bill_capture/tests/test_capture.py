@@ -21,6 +21,14 @@ class TestCapture(BillCase):
         self.assertFalse(move.bill_ai_partner_unknown)
         self.assertEqual(move.bill_ai_state, "done")
 
+    def test_bill_without_date_is_not_posted_into_the_current_year(self):
+        move = self.new_bill()
+        self.read_bill(move, answer(invoice_date=None))
+        self.assertFalse(move.invoice_date)
+        with self.assertRaises(UserError):
+            move.action_post()
+        self.assertEqual(move.state, "draft")
+
     def test_supplier_by_iban(self):
         self.env["res.partner.bank"].create({"partner_id": self.supplier.id, "acc_number": IBAN})
         move = self.new_bill()
