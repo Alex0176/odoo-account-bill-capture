@@ -487,8 +487,12 @@ class AccountMove(models.Model):
         name = sup.get("name")
         key = matching.tokens(name, drop_legal=True)
         if key:
-            token = max(key, key=len)
-            candidates = Partner.search(cdomain + [("parent_id", "=", False), ("name", "ilike", token)], limit=300)
+            # Search with the words as written ("Österreichische"), not with the folded tokens: the
+            # database does not fold accents, so "osterreichische" would never find that partner.
+            words = sorted({w for w in re.findall(r"[^\W_]+", name or "") if len(w) >= 4}, key=len, reverse=True)[:3]
+            words = words or [max(key, key=len)]
+            domain = ["|"] * (len(words) - 1) + [("name", "ilike", w) for w in words]
+            candidates = Partner.search(cdomain + [("parent_id", "=", False)] + domain, limit=300)
             best, score, ambiguous = matching.best_match(
                 [(p.id, p.name) for p in candidates], name, PARTNER_THRESHOLD)
             if best:
@@ -590,7 +594,7 @@ class AccountMove(models.Model):
             ("company_id", "=", self.company_id.id), ("price_include", "=", False)]).filtered(
             lambda t: abs(t.amount - rate) < 0.001)
 
-    def _bill_ai_tax_for(self, rate, hist_taxes):
+    def _bill_ai_tax_for(self, rate, hist_taxes, usage=None):
         """``(tax records, problem)`` from the EXISTING purchase taxes by rate; the history of the
         supplier decides between several. No guessing: unclear gives no tax and a problem text."""
         if rate is None:
@@ -601,6 +605,10 @@ class AccountMove(models.Model):
             return from_history, ""
         if len(candidates) == 1:
             return candidates, ""
+        if usage and candidates:  # several taxes with this rate: the one this supplier's bills use most clearly wins
+            ranked = sorted(((usage.get(t.id, 0), t) for t in candidates), key=lambda x: -x[0])
+            if ranked[0][0] > 0 and (len(ranked) < 2 or ranked[0][0] > ranked[1][0]):
+                return ranked[0][1], ""
         if not candidates:
             return self.env["account.tax"], _("no purchase tax with %s %%", rate)
         return self.env["account.tax"], _("several purchase taxes with %(rate)s %% (%(names)s)",
@@ -666,6 +674,10 @@ class AccountMove(models.Model):
         history = self._bill_ai_history(partner)
         commands = [Command.delete(l.id) for l in self.invoice_line_ids.filtered("bill_ai_generated")]
         usual_account = False
+        tax_usage = {}
+        for h in history:
+            for tax in h["taxes"]:
+                tax_usage[tax.id] = tax_usage.get(tax.id, 0) + 1
         if history:
             counts = {}
             for h in history:
@@ -679,7 +691,8 @@ class AccountMove(models.Model):
                 hist = next(h for h in history if h["id"] == best)
             product, source = self._bill_ai_find_product(
                 ld["description"], ld["item_number"], partner, hist["product"] if hist else None)
-            taxes, tax_problem = self._bill_ai_tax_for(ld["tax_rate"], hist["taxes"] if hist else self.env["account.tax"])
+            taxes, tax_problem = self._bill_ai_tax_for(
+                ld["tax_rate"], hist["taxes"] if hist else self.env["account.tax"], usage=tax_usage)
             art = ld["art"]
             missing, hints = False, []
             account = hist["account"] if hist else False

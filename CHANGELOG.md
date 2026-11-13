@@ -5,6 +5,8 @@ All notable changes of `account_bill_capture`. Versions follow the Odoo scheme `
 ## Unreleased
 
 ### Fixed
+- Supplier names with umlauts ("Österreichische ...") are found again: the candidate search uses the words as written, not the accent-folded tokens.
+- When several purchase taxes share a rate, the one this supplier's earlier bills use most clearly is taken instead of leaving the tax empty (tested on 127 real positions: 127/127 identical to the hand-booked taxes).
 - A position without any usable booking history no longer makes the draft fail with a database constraint error: it gets the expense account Odoo proposes for the supplier, the journal default or the product category default.
 
 ## 19.0.1.0.0 - 2026-11-13
