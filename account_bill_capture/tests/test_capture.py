@@ -21,6 +21,9 @@ class TestCapture(BillCase):
         self.assertFalse(move.bill_ai_partner_unknown)
         self.assertEqual(move.bill_ai_state, "done")
 
+    def test_flags_text_keeps_its_dependencies(self):
+        self.assertIn("bill_ai_duplicate", self.env["account.move"]._fields["bill_ai_flags_text"].get_depends(self.env["account.move"])[0])
+
     def test_bill_without_date_is_not_posted_into_the_current_year(self):
         move = self.new_bill()
         self.read_bill(move, answer(invoice_date=None))
