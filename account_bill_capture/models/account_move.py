@@ -565,6 +565,25 @@ class AccountMove(models.Model):
         return [{"id": l.id, "name": l.name or "", "product": l.product_id, "account": l.account_id,
                  "taxes": l.tax_ids} for l in lines]
 
+    def _bill_ai_fallback_account(self, partner):
+        """An expense account for a line without usable history: what Odoo itself would propose for this
+        supplier, else the default account of the journal. Without one the line could not be saved."""
+        Account = self.env["account.account"]
+        account = Account.browse()
+        if partner:
+            account_id = Account._get_most_frequent_account_for_partner(
+                self.company_id.id, partner.id, "in_invoice")
+            account = Account.browse(account_id).exists() if account_id else account
+        if not account:
+            account = self.journal_id.default_account_id
+        if not account:  # the expense account Odoo proposes for products without a category setting
+            category = self.env["product.category"].with_company(self.company_id).search([], limit=1)
+            account = category.property_account_expense_categ_id
+        if not account:  # last resort: any expense account of the company, so the draft can be saved
+            account = Account.search([("account_type", "in", ("expense", "expense_direct_cost")),
+                                      ("company_ids", "in", self.company_id.ids)], limit=1)
+        return account
+
     def _bill_ai_purchase_taxes(self, rate):
         return self.env["account.tax"].search([
             ("type_tax_use", "=", "purchase"), ("amount_type", "=", "percent"),
@@ -694,6 +713,8 @@ class AccountMove(models.Model):
             }
             if product:
                 vals["product_id"] = product.id
+            if not account:
+                account = self._bill_ai_fallback_account(partner)
             if account:
                 vals["account_id"] = account.id
             uom = self._bill_ai_uom(ld["unit"])

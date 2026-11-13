@@ -2,6 +2,11 @@
 
 All notable changes of `account_bill_capture`. Versions follow the Odoo scheme `19.0.x.y.z`.
 
+## Unreleased
+
+### Fixed
+- A position without any usable booking history no longer makes the draft fail with a database constraint error: it gets the expense account Odoo proposes for the supplier, the journal default or the product category default.
+
 ## 19.0.1.0.0 - 2026-11-13
 
 First public release.
