@@ -1560,3 +1560,27 @@ msgid ""
 "Please enter the bill date of %s before posting: a bill is booked in the "
 "year of the document, never in the current year by default."
 msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_partner__bill_recurring
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_users__bill_recurring
+msgid "Standing invoice (every month)"
+msgstr ""
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid ""
+"Standing invoice of the supplier: dated today, the date on the document (%s) "
+"is not used."
+msgstr ""
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_res_partner__bill_recurring
+#: model:ir.model.fields,help:account_bill_capture.field_res_users__bill_recurring
+msgid ""
+"This supplier sends one standing invoice (e.g. rent) that is booked every "
+"month. When such a bill is read with AI, its old invoice date and its invoice"
+" number that exists already are accepted: the bill gets today's date and the "
+"number gets the month, e.g. 01/2023 (11/2026)."
+msgstr ""

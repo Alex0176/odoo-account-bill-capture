@@ -356,8 +356,16 @@ class AccountMove(models.Model):
 
         # header
         header = {}
+        recurring = bool(partner and partner.bill_recurring)
         bad_dates = schema.date_problems(data, today)
-        if "invoice_date" in bad_dates:
+        if recurring:
+            # standing invoice: the document date is old on purpose; the bill is booked for this month
+            bad_dates = [d for d in bad_dates if d != "invoice_date"]
+            if not self.invoice_date:
+                header["invoice_date"] = today
+            info.append(_("Standing invoice of the supplier: dated today, the date on the document (%s) is not used.",
+                          data["invoice_date"] or "-"))
+        elif "invoice_date" in bad_dates:
             warn.append(_("The invoice date %s is not plausible; it was not taken over.", data["invoice_date"]))
         elif data["invoice_date"] and not self.invoice_date:
             header["invoice_date"] = data["invoice_date"]
@@ -367,7 +375,10 @@ class AccountMove(models.Model):
             header["invoice_payment_term_id"] = False
             header["invoice_date_due"] = data["due_date"]
         if data["invoice_number"] and not self.ref:
-            header["ref"] = data["invoice_number"]
+            # a standing invoice carries the same number every month: the month makes it unique
+            month = header.get("invoice_date") or self.invoice_date or today
+            header["ref"] = ("%s (%s)" % (data["invoice_number"], month.strftime("%m/%Y"))
+                             if recurring else data["invoice_number"])
         if data["payment_reference"] and not self.payment_reference:
             header["payment_reference"] = data["payment_reference"]
         if data["currency"] and self.currency_id.name != data["currency"]:
@@ -412,7 +423,8 @@ class AccountMove(models.Model):
                 warn.append(_("The total of the draft (%(draft)s) differs from the bill (%(bill)s).",
                               draft=self.amount_total, bill=data["total_gross"]))
         flags["bill_ai_duplicate"] = False
-        duplicates = self._bill_ai_duplicates(partner, self.ref or data["invoice_number"])
+        duplicates = self.browse() if recurring else self._bill_ai_duplicates(
+            partner, self.ref or data["invoice_number"])
         if duplicates:
             flags["bill_ai_duplicate"] = True
             warn.append(_("The invoice number %(ref)s exists already for this supplier: %(moves)s.",
@@ -536,9 +548,20 @@ class AccountMove(models.Model):
             # one contact carries that word first; the draft shows it, the person checks.
             brand = key[0]
             if len(brand) >= 5:
+                rest_read = [t for t in key[1:] if len(t) >= 4]
+
                 def same_brand(partner):
-                    compact = "".join(matching.tokens(partner.name, drop_legal=True))
-                    return len(compact) >= 5 and (compact.startswith(brand) or brand.startswith(compact))
+                    tokens = matching.tokens(partner.name, drop_legal=True)
+                    compact = "".join(tokens)
+                    if not (len(compact) >= 5 and (compact.startswith(brand) or brand.startswith(compact))):
+                        return False
+                    # "Franz Beispielmeier" is not "Franz Musterbach": when both names go on with a further word of its
+                    # own (4+ letters) and these words share nothing, the contact is another company.
+                    rest_have = [t for t in tokens[1:] if len(t) >= 4]
+                    if rest_read and rest_have and not any(
+                            a.startswith(b) or b.startswith(a) for a in rest_read for b in rest_have):
+                        return False
+                    return True
 
                 same = candidates.filtered(same_brand)
                 if len(same) == 1:

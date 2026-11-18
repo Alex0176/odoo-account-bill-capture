@@ -3,6 +3,7 @@
 import json
 
 from odoo.exceptions import AccessError, UserError
+from odoo import fields
 from odoo.addons.ai_translation_consensus.providers.http import ProviderError, ProviderUnavailable
 from odoo.tests.common import tagged
 
@@ -99,6 +100,38 @@ class TestCapture(BillCase):
         self.read_bill(move, answer(invoice_date="2019-01-01"))
         self.assertFalse(move.invoice_date)
         self.assertIn("not plausible", move.bill_ai_notes)
+
+    def test_standing_invoice_is_booked_every_month(self):
+        """A supplier marked as standing invoice: the old date and the repeated number are accepted."""
+        self.supplier.with_company(self.company).bill_recurring = True
+        today = fields.Date.context_today(self.env.user)
+        move = self.new_bill()
+        self.read_bill(move, answer(invoice_date="2019-01-01", invoice_number="01/2019"))
+        self.assertEqual(move.invoice_date, today)
+        self.assertEqual(move.ref, "01/2019 (%s)" % today.strftime("%m/%Y"))
+        # the note names the date on the document (checked without relying on the language of the notes)
+        self.assertIn("2019-01-01", move.bill_ai_notes)
+        self.assertFalse(move.bill_ai_duplicate)
+        # a second reading in the same month is not reported as a duplicate either
+        again = self.new_bill()
+        self.read_bill(again, answer(invoice_date="2019-01-01", invoice_number="01/2019"))
+        self.assertFalse(again.bill_ai_duplicate)
+        self.assertEqual(again.state, "draft")
+        # without the mark nothing changes: the old date is refused
+        self.supplier.with_company(self.company).bill_recurring = False
+        plain = self.new_bill()
+        self.read_bill(plain, answer(invoice_date="2019-01-01", invoice_number="01/2019"))
+        self.assertFalse(plain.invoice_date)
+        self.assertEqual(plain.ref, "01/2019")
+
+    def test_brand_word_that_is_only_a_first_name_does_not_match_another_company(self):
+        other = self.partner_ctx.create({"name": "Franz Musterbach GmbH", "is_company": True})
+        move = self.new_bill()
+        partner, _how, _ambiguous = move._bill_ai_match_partner({"name": "Franz Beispielmeier", "vat": False})
+        self.assertNotEqual(partner, other)
+        # the same brand with a matching second word is still found
+        partner, _how, _ambiguous = move._bill_ai_match_partner({"name": "Franz Musterbach", "vat": False})
+        self.assertEqual(partner, other)
 
     # ------------------------------------------------------------ taxes
     def test_tax_by_rate_when_unique_and_ambiguity_gives_a_hint_instead_of_a_guess(self):

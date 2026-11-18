@@ -24,6 +24,7 @@ documents); the module checks this at run time.
         "views/account_bill_capture_log_views.xml",
         "views/account_move_views.xml",
         "views/product_views.xml",
+        "views/res_partner_views.xml",
         "views/res_config_settings_views.xml",
         "views/templates.xml",
         "wizard/account_bill_sale_price_wizard_views.xml",

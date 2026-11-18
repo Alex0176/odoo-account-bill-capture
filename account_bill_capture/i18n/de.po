@@ -1647,3 +1647,27 @@ msgid ""
 msgstr ""
 "Bitte das Rechnungsdatum von %s vor dem Buchen eintragen: Ein Beleg wird im "
 "Jahr des Belegs gebucht, nie standardmäßig im laufenden Jahr."
+
+#. module: account_bill_capture
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_partner__bill_recurring
+#: model:ir.model.fields,field_description:account_bill_capture.field_res_users__bill_recurring
+msgid "Standing invoice (every month)"
+msgstr "Dauerrechnung (jeden Monat)"
+
+#. module: account_bill_capture
+#. odoo-python
+#: code:addons/account_bill_capture/models/account_move.py:0
+msgid ""
+"Standing invoice of the supplier: dated today, the date on the document (%s) "
+"is not used."
+msgstr "Dauerrechnung des Lieferanten: mit heutigem Datum, das Datum auf dem Beleg (%s) wird nicht verwendet."
+
+#. module: account_bill_capture
+#: model:ir.model.fields,help:account_bill_capture.field_res_partner__bill_recurring
+#: model:ir.model.fields,help:account_bill_capture.field_res_users__bill_recurring
+msgid ""
+"This supplier sends one standing invoice (e.g. rent) that is booked every "
+"month. When such a bill is read with AI, its old invoice date and its invoice"
+" number that exists already are accepted: the bill gets today's date and the "
+"number gets the month, e.g. 01/2023 (11/2026)."
+msgstr "Dieser Lieferant stellt eine Dauerrechnung (z. B. Miete), die jeden Monat gebucht wird. Wird ein solcher Beleg mit KI gelesen, gelten das alte Rechnungsdatum und die schon vorhandene Rechnungsnummer: Der Beleg bekommt das heutige Datum, die Nummer den Monat, z. B. 01/2023 (11/2026)."
