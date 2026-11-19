@@ -12,6 +12,7 @@ from markupsafe import Markup, escape
 from odoo import Command, _, api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.modules import module as odoo_module
+from odoo.tools import config
 
 from ..engine import files as file_engine
 from ..engine import matching, prompts, schema
@@ -19,12 +20,31 @@ from .account_bill_capture_log import RAW_LIMIT
 
 _logger = logging.getLogger(__name__)
 
+
+def _time_budget():
+    """Seconds a request or job may spend on readings, None when unlimited.
+
+    A worker that runs longer than ``limit_time_real`` is killed by the server
+    and loses its transaction, so a reading has to end before that.
+    """
+    limit = config["limit_time_real"] or 0
+    return max(limit - WORKER_MARGIN, CALL_MIN) if limit > 0 else None
+
+
+def _call_timeout(deadline):
+    """Timeout of the next reading, given the monotonic deadline (or None)."""
+    if deadline is None:
+        return CALL_TIMEOUT
+    return max(min(CALL_TIMEOUT, int(deadline - time.monotonic())), 0)
+
 RIGHTS_GROUP = "account.group_account_invoice"
 PURPOSE_MANUAL = "invoice_manual"
 PURPOSE_AUTO = "invoice_auto"
 MAX_FILE_MB_PARAM = "account_bill_capture.max_file_mb"
 DEFAULT_MAX_MB = 10
-CALL_TIMEOUT = 90               # seconds a single reading may take
+CALL_TIMEOUT = 240              # seconds a single reading may take (large PDFs need up to ~100 s)
+CALL_MIN = 30                   # with less time left no further reading is started
+WORKER_MARGIN = 20              # seconds kept free before the server's own time limit
 CRON_BATCH = 5                  # drafts per run of the background job
 CRON_SECONDS = 240              # no new reading starts after this many seconds
 MAX_ATTEMPTS = 3                # automatic readings per draft that fail
@@ -163,6 +183,8 @@ class AccountMove(models.Model):
         """Automatic mode: read queued drafts with a provider of the purpose 'Invoices - automatic'.
         Small portions, time limit. It fills drafts only: nothing is posted, paid or sent."""
         started = time.monotonic()
+        budget = _time_budget()
+        deadline = started + budget if budget else None
         now = fields.Datetime.now()
         domain = [("bill_ai_state", "=", "queued"), ("state", "=", "draft"), ("move_type", "=", "in_invoice"),
                   ("company_id.bill_capture_mode", "=", "auto")]
@@ -172,11 +194,12 @@ class AccountMove(models.Model):
         moves = self.search(domain, order="id", limit=CRON_BATCH)
         done = 0
         for move in moves:
-            if time.monotonic() - started > CRON_SECONDS:
+            if time.monotonic() - started > CRON_SECONDS or _call_timeout(deadline) < CALL_MIN:
                 break
             try:
                 with self.env.cr.savepoint():
-                    move.with_company(move.company_id)._bill_ai_cron_one()
+                    move.with_company(move.company_id).with_context(
+                        bill_capture_deadline=deadline)._bill_ai_cron_one()
             except Exception:  # noqa: BLE001
                 _logger.exception("Bill capture: draft %s failed", move.id)
             done += 1
@@ -254,11 +277,18 @@ class AccountMove(models.Model):
         Log = self.env["account.bill.capture.log"].sudo()
         best = None                       # (data, problems, log) of the best reading so far
         reasons = None
+        deadline = self.env.context.get("bill_capture_deadline")
+        if deadline is None and _time_budget():
+            deadline = time.monotonic() + _time_budget()
         for attempt in (1, 2):
+            timeout = _call_timeout(deadline)
+            if best and timeout < CALL_MIN:
+                break                     # no time for a second reading: the first one stays
+            timeout = max(timeout, CALL_MIN)
             prompt_system, prompt_user = prompts.build(company.name, today, retry_reasons=reasons)
             started = time.monotonic()
             try:
-                raw_answer = provider._read_document(prompt_system, prompt_user, files, code, timeout=CALL_TIMEOUT)
+                raw_answer = provider._read_document(prompt_system, prompt_user, files, code, timeout=timeout)
             except Exception as exc:  # noqa: BLE001
                 message = self._bill_ai_scrub(str(exc), key)
                 Log.create(dict(log_vals, state="error", error=message[:250], seconds=time.monotonic() - started))
